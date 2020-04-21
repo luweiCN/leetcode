@@ -16,24 +16,19 @@
  * @param {ListNode} head
  * @return {ListNode}
  */
-var reverseList = function (head) {
-    let arr = [];
-    let current = head;
-    while (current && current.val !== null) {
-        arr.push(current);
-        current = current.next;
-    }
 
-    let reverse = new ListNode(null);
-    let reverse_head = reverse;
-    for (let i = arr.length - 1; i >= 0; i--) {
-        reverse = arr[i];
-        i - 1 >= 0 && (reverse.next = arr[i - 1]);
-        if (i === arr.length - 1) {
-            reverse_head = reverse;
-        }
-    }
-    reverse.next = null;
-    return reverse_head && reverse_head.val !== null ? reverse_head : null;
+// 迭代法
+var reverseList = function (head) {
+  let prev = null;
+  let current = head;
+  while (current) {
+    let next = current.next;
+    current.next = prev;
+    prev = current;
+    current = next;
+    // 可以简写成
+    // [current.next, current, prev] = [prev, current.next, current];
+  }
+  return prev;
 };
 // @lc code=end
