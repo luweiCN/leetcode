@@ -16,36 +16,55 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
+// var levelOrderBottom = function (root) {
+//   if (root === null) return [];
+//   let queue = [[root]];
+//   let print = [];
+//   while (queue.length) {
+//     let currentLevel = queue.shift(); // 当前遍历的层，也是一个队列保存的是当前层所有的节点
+//     let currentLevelVal = [];
+//     let nextLevel = []; // 准备保存下一层所有的节点
+//     while (currentLevel.length) {
+//       let currentNode = currentLevel.shift();
+//       currentLevelVal.push(currentNode.val);
+
+//       // 根据当前层节点是否有子节点构造下一层的队列
+//       if (currentNode.left !== null) {
+//         nextLevel.push(currentNode.left);
+//       }
+//       if (currentNode.right !== null) {
+//         nextLevel.push(currentNode.right);
+//       }
+//     }
+
+//     // 如果下一层队列还有节点，加到外层队列
+//     if (nextLevel.length) {
+//       queue.push(nextLevel);
+//     }
+//     if (currentLevel.length === 0) {
+//       print.unshift(currentLevelVal);
+//     }
+//   }
+
+//   return print;
+// };
+
 var levelOrderBottom = function (root) {
   if (root === null) return [];
-  let queue = [[root]];
-  let print = [];
-  while (queue.length) {
-    let currentLevel = queue.shift(); // 当前遍历的层，也是一个队列保存的是当前层所有的节点
-    let currentLevelVal = [];
-    let nextLevel = []; // 准备保存下一层所有的节点
-    while (currentLevel.length) {
-      let currentNode = currentLevel.shift();
-      currentLevelVal.push(currentNode.val);
-
-      // 根据当前层节点是否有子节点构造下一层的队列
-      if (currentNode.left !== null) {
-        nextLevel.push(currentNode.left);
+  let res = [];
+  function helper(root, index) {
+    if (root !== null) {
+      if (res[index]) {
+        res[index].push(root.val);
+      } else {
+        res[index] = [root.val];
       }
-      if (currentNode.right !== null) {
-        nextLevel.push(currentNode.right);
-      }
-    }
-
-    // 如果下一层队列还有节点，加到外层队列
-    if (nextLevel.length) {
-      queue.push(nextLevel);
-    }
-    if (currentLevel.length === 0) {
-      print.unshift(currentLevelVal);
+      helper(root.left, index + 1);
+      helper(root.right, index + 1);
     }
   }
 
-  return print;
+  helper(root, 0);
+  return res.reverse();
 };
 // @lc code=end
