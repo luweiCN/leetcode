@@ -79,7 +79,7 @@ function insert(heap, data, k) {
 //     .map((v) => v[0]);
 // };
 
-console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
-console.log(topKFrequent([1], 1));
+// console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
+// console.log(topKFrequent([1], 1));
 
 // @lc code=end
